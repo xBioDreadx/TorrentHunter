@@ -23,7 +23,7 @@ class HitViewModel {
 
             for(int i=0; i < (hit['files'] as List<Map<String,Object>>).size(); i++)
             {
-                this.files.add(new FileHit((String) hit['files'][i]['path'], (int) hit['files'][i]['length']));
+                this.files.add(new FileHit((String) hit['files'][i]['path'], (long) hit['files'][i]['length']));
             }
         }
         this.search = hit['search'];
@@ -31,14 +31,14 @@ class HitViewModel {
             this.fileSize = (long)  hit['fileSize'];
         } else {
             for (int i = 0; i < this.files.size(); i++) {
-                this.fileSize += this.files[i].size;
+                this.fileSize +=(long) this.files[i].size;
             }
         }
-        if (((this.fileSize / 1024) / 1024) / 1024 > 1) {
+        if ((((long)this.fileSize / 1024) / 1024) / 1024 > 1) {
             this.fileSize = ((this.fileSize / 1024) / 1024) / 1024;
             this.sizeType = "Gb";
         } else {
-            if ((this.fileSize / 1024) / 1024 > 1) {
+            if (((long)this.fileSize / 1024) / 1024 > 1) {
                 this.fileSize = (this.fileSize / 1024) / 1024;
                 this.sizeType = "Mb";
             } else {
@@ -51,7 +51,7 @@ class HitViewModel {
         } else
             this.seeders = 0;
         if (hit['peers_updated'] != null) {
-            this.peers_updated = new Date((long) hit['peers_updated']);
+            this.peers_updated = new Date((long) hit['peers_updated']*1000);
         } else
             this.seeders = 0;
         this.magnet = hit['magnet'];

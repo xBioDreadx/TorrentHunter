@@ -3,8 +3,9 @@
     <div class="search-row row">
         <div class="col-md-8">
             <form method="get" action="/?Language=${language}">
+                <input type="hidden" name="Language" value="${language}">
                 <div class="input-group search-group">
-                    <input type="text" class="form-control search-bar" aria-describedby="search-btn"
+                    <input type="text" class="form-control search-bar" aria-describedby="search-btn" name="searchString"
                            placeholder="Твой запрос" <#if searchString!=''>value="${searchString}"</#if>>
                     <button class="btn submit-btn input-group-addon" id="search-btn">Найти!</button>
                 </div>
@@ -47,10 +48,10 @@
 <#if hits?size!=0>
     <div class="row">
         <div class="col-md-7">
-            <p class="res-count">Результатов поиска: ${hits?size}. Страница  ${page} из  ${pages_total}</p>
+            <p class="res-count">Результатов поиска: ${query_total}. Страница  ${page} из  ${pages_total}</p>
         </div>
     </div>
-<div class="panel">
+<div class="container">
     <div class="row">
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <#if 1<page >
@@ -60,14 +61,14 @@
                         <button type="button" class="btn btn-default">3</button></#if>
                     <#if 5<page >
                         <button type="button" class="btn btn-default"> ${page - 1}</button> </#if>
-                    <button type="button" class="btn btn-default">Назад</button>
+                    <button type="button" class="btn btn-default">Предыдущая</button>
                 </div>
             </#if>
             <#if 0 < (pages_total -page) >
                 <div class="btn-group" role="group" aria-label="Second group">
-                    <button type="button" class="btn btn-default">Вперёд</button>
+                    <button type="button" class="btn btn-default">Следующая</button>
                     <#if 1 < (pages_total -page) >
-                        <button type="button" class="btn btn-default">${page + 2} ?></button> </#if>
+                        <button type="button" class="btn btn-default">${page + 2} </button> </#if>
                     <#if 4 < (pages_total -page) >
                         <button type="button" class="btn btn-default">${page + 5}</button> </#if>
                     <#if 2 < (pages_total -page)&&(pages_total!=(page + 5)) >
@@ -76,17 +77,17 @@
             </#if>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-7">Название</div>
-        <div class="col-md-1">Размер</div>
-        <div class="col-md-1">Сиды</div>
-        <div class="col-md-1">Последнее обновление</div>
+    <div class="row search_head">
+        <div class="col-md-7">Название<a href="/?Language=${language}&searchString=${searchString}&page=${page}" class="link"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></div>
+        <div class="col-md-1 padding-5">Размер<a href="/?Language=${language}&searchString=${searchString}&page=${page}&Sort=2" class="link"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></div>
+        <div class="col-md-1 ">Сиды<a href="/?Language=${language}&searchString=${searchString}&page=${page}&Sort=3" class="link"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></div>
+        <div class="col-md-3">Последнее обновление<a href="/?Language=${language}&searchString=${searchString}&page=${page}&Sort=4" class="link"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></div>
     </div>
     <#list hits as hit>
         <div class="row search-item">
             <div class="col-md-7">${hit.getProperty('search')}</div>
-            <div class="col-md-1">${hit.getProperty('fileSize')}${hit.getProperty('sizeType')}</div>
-            <div class="col-md-1">${hit.getProperty('seeders')}</div>
+            <div class="col-md-1">#{hit.getProperty('fileSize'); M2}${hit.getProperty('sizeType')}</div>
+            <div class="col-md-1 seeders_cell">${hit.getProperty('seeders')}</div>
             <div class="col-md-2">${hit.getProperty('peers_updated')?datetime}</div>
             <div class="col-md-1"><a href="${hit.getProperty('magnet')}" rel="nofollow">Скачать</a>
             </div>

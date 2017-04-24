@@ -50,12 +50,9 @@ public class HomeController {
                 model.addAttribute("query_total",searchHit.totalHits);
                 model.addAttribute("pages_total",Math.ceil(searchHit.totalHits/100));
 
-                //println(hits.hits[0]['source']['search']);
-
                 ArrayList<HitViewModel> hitsModel = new ArrayList<HitViewModel>();
                 for(int i = 0; i < searchHit.hits.length;i++)
                 {
-                    println(i);
                     hitsModel.add(new HitViewModel(searchHit.hits[i]['source'] as Map<String,Object>));
                 }
                 model.addAttribute("hits",hitsModel);
