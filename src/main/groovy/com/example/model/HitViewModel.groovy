@@ -53,4 +53,5 @@ class HitViewModel {
             this.seeders = 0;
         this.magnet = hit['magnet'];
     }
+    /*xyi*/
 }
