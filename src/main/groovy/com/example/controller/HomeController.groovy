@@ -1,4 +1,5 @@
 package com.example.controller
+
 import com.example.model.FindQueryModel
 import com.example.model.HitViewModel
 import com.example.service.SearchingService
@@ -30,51 +31,49 @@ public class HomeController {
             Model model) {
 
 
-        if(!bindingResult.hasErrors())
-        {
+        if (!bindingResult.hasErrors()) {
             searchingService.setModel(findQueryModel);
-            try{
-                searchingService.Search();
-                model.addAttribute("language",findQueryModel.getLanguage());
-                model.addAttribute("searchString",findQueryModel.getSearchString());
-                model.addAttribute("page",findQueryModel.getPage());
-                model.addAttribute("sort",findQueryModel.getSort());
-                //TODO add  categories and tags
-                /*
-                String Categories
+            try {
+                model.addAttribute("language", findQueryModel.getLanguage());
+                model.addAttribute("searchString", findQueryModel.getSearchString());
+                if (findQueryModel.getSearchString() != '') {
+                    searchingService.Search();
+                    model.addAttribute("page", findQueryModel.getPage());
+                    model.addAttribute("sort", findQueryModel.getSort());
+                    //TODO add  categories and tags
+                    /*
+                    String Categories
 
-                String Tags
-                */
-                SearchHits searchHit = searchingService.Response.getHits();
+                    String Tags
+                    */
+                    SearchHits searchHit = searchingService.Response.getHits();
 
-                model.addAttribute("query_total",searchHit.totalHits);
-                model.addAttribute("pages_total",Math.ceil(searchHit.totalHits/100));
+                    model.addAttribute("query_total", searchHit.totalHits);
+                    model.addAttribute("pages_total", Math.ceil(searchHit.totalHits / 100));
 
-                ArrayList<HitViewModel> hitsModel = new ArrayList<HitViewModel>();
-                for(int i = 0; i < searchHit.hits.length;i++)
+                    ArrayList<HitViewModel> hitsModel = new ArrayList<HitViewModel>();
+                    for (int i = 0; i < searchHit.hits.length; i++) {
+                        hitsModel.add(new HitViewModel(searchHit.hits[i]['source'] as Map<String, Object>));
+                    }
+                    model.addAttribute("hits", hitsModel);
+
+                    return "search";
+                } else
                 {
-                    hitsModel.add(new HitViewModel(searchHit.hits[i]['source'] as Map<String,Object>));
+                    return "index"
                 }
-                model.addAttribute("hits",hitsModel);
-
-                return "index";
-
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 println(e);
                 //TODO 404 Page
                 return "header";
             }
 
-        }
-        else
-        {
+        } else {
             //TODO 404 Page
             println("ERROR");
             return "header";
         }
-
 
         //model.addAttribute("Language", FindQueryModel.Language);
 

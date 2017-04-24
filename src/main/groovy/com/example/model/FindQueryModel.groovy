@@ -12,7 +12,6 @@ import javax.validation.constraints.Size
 
 class FindQueryModel {
 //SpringBootValidation google
-    @NotNull
     String Language
     @Size(min = 3)
     String SearchString
@@ -25,13 +24,6 @@ class FindQueryModel {
     String Categories
 
     String Tags
-
-    public void setLanguage(String language) {
-        if (language != 'ru' || language != 'en')
-            this.Language = 'ru';
-        else
-            this.Language = language;
-    }
 
     public String getSearchString() {
         return this.SearchString;
@@ -54,12 +46,18 @@ class FindQueryModel {
     }
 
     public void formatInputs() {
+        if (language != 'ru' || language != 'en')
+            this.Language = 'ru';
+        else
+            this.Language = language;
         if (!this.Page)
             this.Page = 1;
-        this.SearchString = this.SearchString.trim();
-        if(!this.Sort)
-        {
-            this.Sort =1;
+        if (this.SearchString)
+            this.SearchString = this.SearchString.trim();
+        else
+            this.SearchString = '';
+        if (!this.Sort) {
+            this.Sort = 1;
         }
 
     }
