@@ -2,6 +2,8 @@ package com.example.controller
 import com.example.model.FindQueryModel
 import com.example.model.HitViewModel
 import com.example.service.SearchingService
+import org.elasticsearch.action.search.SearchResponse
+import org.elasticsearch.search.SearchHits
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -43,20 +45,19 @@ public class HomeController {
 
                 String Tags
                 */
-                def hits = searchingService.Response.getHits();
+                SearchHits searchHit = searchingService.Response.getHits();
 
-                model.addAttribute("query_total",hits.totalHits);
-                model.addAttribute("pages_total",Math.ceil(hits.totalHits/100));
+                model.addAttribute("query_total",searchHit.totalHits);
+                model.addAttribute("pages_total",Math.ceil(searchHit.totalHits/100));
 
                 //println(hits.hits[0]['source']['search']);
 
                 ArrayList<HitViewModel> hitsModel = new ArrayList<HitViewModel>();
-                for(int i = 0; i < hits.hits.length;i++)
+                for(int i = 0; i < searchHit.hits.length;i++)
                 {
-                    println(i)
-                    hitsModel.plus(new HitViewModel(hits.hits[i]['source']));
+                    println(i);
+                    hitsModel.add(new HitViewModel(searchHit.hits[i]['source'] as Map<String,Object>));
                 }
-                println("after");
                 model.addAttribute("hits",hitsModel);
 
                 return "index";

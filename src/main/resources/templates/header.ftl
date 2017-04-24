@@ -9,14 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 <body class="container">
 <header class="site-header container">
     <div class="row">
         <div class="col-md-4">
-            <a href="/?Language=${language}"><img src="/static/images/logo.png" alt="Логотип"></a>
+            <a href="/?Language=${language}"><img src="/images/logo.png" alt="Логотип"></a>
         </div>
         <div class="col-md-8">
             <h1 class="header-h1">Torrent Hunter - Лучший поисковик торрентов!</h1>

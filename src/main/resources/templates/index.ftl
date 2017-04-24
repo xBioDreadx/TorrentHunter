@@ -44,10 +44,10 @@
             </div>
         </div>
     </div>
-<#if query_response?size!=0>
+<#if hits?size!=0>
     <div class="row">
         <div class="col-md-7">
-            <p class="res-count">Результатов поиска: ${query_response?size}. Страница  ${page} из  ${pages_total}</p>
+            <p class="res-count">Результатов поиска: ${hits?size}. Страница  ${page} из  ${pages_total}</p>
         </div>
     </div>
 <div class="panel">
@@ -84,13 +84,14 @@
     </div>
     <#list hits as hit>
         <div class="row search-item">
-            <div class="col-md-7">${hit.search}</div>
-            <div class="col-md-1">${hit.fileSize}</div>
-            <div class="col-md-1">${hit.seeders}</div>
-            <div class="col-md-2">${hit.peers_updated}</div>
-            <div class="col-md-1"><a href="${hit.magnet}" rel="nofollow">Скачать</a>
+            <div class="col-md-7">${hit.getProperty('search')}</div>
+            <div class="col-md-1">${hit.getProperty('fileSize')}${hit.getProperty('sizeType')}</div>
+            <div class="col-md-1">${hit.getProperty('seeders')}</div>
+            <div class="col-md-2">${hit.getProperty('peers_updated')?datetime}</div>
+            <div class="col-md-1"><a href="${hit.getProperty('magnet')}" rel="nofollow">Скачать</a>
             </div>
         </div>
     </#list>
 </#if>
 </div>
+<#include "footer.ftl">

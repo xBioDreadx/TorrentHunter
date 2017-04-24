@@ -2,6 +2,8 @@ package com.example.model
 
 import org.elasticsearch.search.SearchHit
 
+import java.lang.reflect.Array
+
 class HitViewModel {
     public String search;
     public float fileSize;
@@ -14,20 +16,21 @@ class HitViewModel {
     public String magnet;
     public  ArrayList<FileHit> files;
 
-    HitViewModel(Object hit) {
+    HitViewModel(Map<String,Object> hit) {
 
         this.files = new ArrayList<FileHit>();
         if (hit['files'] != null) {
-            for(int i=0;i<hit['files'].size();i++)
+
+            for(int i=0; i < (hit['files'] as List<Map<String,Object>>).size(); i++)
             {
-                this.files.plus(new FileHit((String) hit['files'][i]['path'], (int) hit['files'][i]['length']));
+                this.files.add(new FileHit((String) hit['files'][i]['path'], (int) hit['files'][i]['length']));
             }
         }
         this.search = hit['search'];
         if (hit['fileSize'] != null) {
             this.fileSize = (long)  hit['fileSize'];
         } else {
-            for (int i = 0; i < this.files.length; i++) {
+            for (int i = 0; i < this.files.size(); i++) {
                 this.fileSize += this.files[i].size;
             }
         }
