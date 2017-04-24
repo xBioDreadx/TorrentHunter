@@ -26,7 +26,7 @@
 </header>
 <div class="container">
     <div class="search-row row">
-        <div class="col-md-8">
+        <div class="col-md-8 col-md-offset-2">
 
                 <input type="hidden" name="Language" value="${language}">
                 <div class="input-group search-group">

@@ -2,7 +2,7 @@
 <div class="container">
 <#if hits?size!=0>
     <div class="row">
-        <div class="col-md-7 col-md-offset-2">
+        <div class="col-md-7">
             <p class="res-count">Результатов поиска: ${query_total}. Страница  ${page} из  ${pages_total}</p>
         </div>
     </div>
