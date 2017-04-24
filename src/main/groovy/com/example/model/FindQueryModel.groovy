@@ -56,7 +56,7 @@ class FindQueryModel {
             this.SearchString = this.SearchString.trim();
         else
             this.SearchString = '';
-        if (!this.Sort) {
+        if (this.Sort==null||this.Sort<1) {
             this.Sort = 1;
         }
 

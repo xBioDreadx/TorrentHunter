@@ -36,6 +36,7 @@ public class HomeController {
             try {
                 model.addAttribute("language", findQueryModel.getLanguage());
                 model.addAttribute("searchString", findQueryModel.getSearchString());
+
                 if (findQueryModel.getSearchString() != '') {
                     searchingService.Search();
                     model.addAttribute("page", findQueryModel.getPage());
@@ -60,6 +61,8 @@ public class HomeController {
                     return "search";
                 } else
                 {
+                    model.addAttribute("page", findQueryModel.getPage());
+                    model.addAttribute("sort", findQueryModel.getSort());
                     return "index"
                 }
             }

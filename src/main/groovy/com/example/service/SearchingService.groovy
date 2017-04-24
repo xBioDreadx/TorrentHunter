@@ -5,6 +5,7 @@ import org.elasticsearch.action.search.SearchRequestBuilder
 import org.elasticsearch.client.transport.TransportClient
 import org.elasticsearch.common.settings.Settings
 import org.elasticsearch.common.transport.InetSocketTransportAddress
+import org.elasticsearch.index.query.Operator
 import org.elasticsearch.search.sort.SortBuilders
 import org.elasticsearch.search.sort.SortOrder
 import org.elasticsearch.transport.client.PreBuiltTransportClient
@@ -21,10 +22,6 @@ class SearchingService {
     private FindQueryModel model;
     private SearchRequestBuilder Request;
     public SearchResponse Response;
-    /* public SearchingService()
-     {
-
-     }*/
 
     public void setModel(FindQueryModel model) {
         this.model = model;
@@ -35,7 +32,7 @@ class SearchingService {
     public void Search() {
         this.OpenConnect();
         this.Request = this.client.prepareSearch("torrents").setSearchType(SearchType.DFS_QUERY_THEN_FETCH).setIndices()
-                .setQuery(QueryBuilders.matchQuery('search', this.model.getSearchString()))
+                .setQuery(QueryBuilders.matchQuery('search', this.model.getSearchString()).operator(Operator.AND))
                 .setFrom(this.model.getCompletePage()).setSize(100);
         if (this.model.Sort != null)
             switch (this.model.Sort) {

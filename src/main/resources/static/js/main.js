@@ -40,7 +40,7 @@ $(document).ready(function () {
         var field = item.attr("name");
         var value = item.val();
         document.location = PrepareLink(field,value);
-
+      return false;
     });
 
 });
