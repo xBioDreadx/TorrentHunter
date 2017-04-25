@@ -49,8 +49,26 @@
     border-right-width:35px;
     border-top-right-radius:50px;
     border-bottom-right-radius:50px;
+    outline: none;
 }
-.submit-btn:hover
+
+.btn-group > .btn
+{
+    outline: none;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus
+{
+    outline: none;
+}
+.submit-btn.btn:focus, .submit-btn.btn:active:focus, .submit-btn.btn.active:focus, .submit-btn.btn.focus, .submit-btn.btn:active.focus, .submit-btn.btn.active.focus
+{
+    color: white;
+}
+.submit-btn.btn:active, .submit-btn.btn.active
+{
+    box-shadow: 0px 0px 35px 0px rgba(252,14,10,1);
+}
+.submit-btn:hover,.submit-btn:active
 {
     color:white;
 }
@@ -91,6 +109,8 @@
 .input-goto
 {
     display: inline-block;
+    border: 1px solid silver;
+    height: 33px;
 }
 .goto-label
 {
@@ -98,8 +118,10 @@
 }
 .btn-group .goto-button
 {
-    float: inherit;
     color: #33a3dd;
+    float: right;
+    border-radius: 4px;
+    outline: none;
 }
 .search-group
 {
@@ -161,7 +183,57 @@ input:focus
 {
     outline: none !important;
 }
-
+.file_list_list,.file_list_check
+{
+    display: none;
+}
+.file_list_check:checked+.file_list_list
+{
+    display: block;
+}
+.file_list_list li
+{
+    list-style-type: none;
+}
+.file_list_label
+{
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-weight: 400;
+    color: white;
+    background: -webkit-linear-gradient(left, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 50%,rgba(64,150,238,1) 100%);
+    cursor: pointer;
+}
+.file_list_list li
+{
+    padding: 5px;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    height: 34px;
+    margin-bottom: 5px;
+}
+.file_list_list
+{
+    padding-left: 10px;
+}
+.download_link
+{
+    background: -webkit-linear-gradient(left, rgba(255,175,75,1) 0%,rgba(252,14,10,1) 85%);
+    text-decoration: none !important;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+.download_link:hover
+{
+    box-shadow: 0px 0px 25px 0px rgba(252,14,10,1);
+    color: white;
+}
+.download_link:visited,.download_link:active
+{
+    color: white;
+}
 /**
 *custom style
 */

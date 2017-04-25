@@ -49,11 +49,45 @@
     </div>
     <#list hits as hit>
         <div class="row search-item">
-            <div class="col-md-7">${hit.getProperty('search')}</div>
+            <div class="col-md-7">
+               <p style="font-size: 12pt;">${hit.getProperty('search')}</p>
+                <div class="file_list_wrapper">
+                    <label class="file_list_label" for="file_box_${hit?index}">Список файлов</label>
+                    <input type="checkbox" class="file_list_check" id="file_box_${hit?index}">
+                    <#assign files = hit.getProperty('files')>
+                    <ul class="file_list_list">
+                        <#if files?size!=0>
+                        <#list files as file>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <p>${file.getProperty('name')}</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p>#{file.getProperty('fileSize');M2}${file.getProperty('sizeType')} </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </#list>
+                        <#else >
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <p>${hit.getProperty('originalName')}</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p>#{hit.getProperty('fileSize'); M2}${hit.getProperty('sizeType')}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </#if>
+                    </ul>
+                </div>
+            </div>
             <div class="col-md-1">#{hit.getProperty('fileSize'); M2}${hit.getProperty('sizeType')}</div>
             <div class="col-md-1 seeders_cell">${hit.getProperty('seeders')}</div>
             <div class="col-md-2">${hit.getProperty('peers_updated')?datetime}</div>
-            <div class="col-md-1"><a href="${hit.getProperty('magnet')}" rel="nofollow">Скачать</a>
+            <div class="col-md-1"><a class="download_link" href="${hit.getProperty('magnet')}" rel="nofollow">Скачать</a>
             </div>
         </div>
     </#list>

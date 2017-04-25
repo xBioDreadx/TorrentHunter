@@ -6,9 +6,11 @@ import java.lang.reflect.Array
 
 class HitViewModel {
     public String search;
+    public String originalName;
+    public String type;
     public float fileSize;
     /**
-     * @variablie sizeType необходимо для указания КБ,МБ,ГБ
+     * @Variable sizeType необходимо для указания КБ,МБ,ГБ
      */
     public String sizeType;
     public Integer seeders;
@@ -17,7 +19,7 @@ class HitViewModel {
     public  ArrayList<FileHit> files;
 
     HitViewModel(Map<String,Object> hit) {
-
+        this.originalName
         this.files = new ArrayList<FileHit>();
         if (hit['files'] != null) {
 
@@ -27,6 +29,8 @@ class HitViewModel {
             }
         }
         this.search = hit['search'];
+        this.originalName =hit['name'];
+        this.type = hit['type'];
         if (hit['fileSize'] != null) {
             this.fileSize = (long)  hit['fileSize'];
         } else {
@@ -34,7 +38,22 @@ class HitViewModel {
                 this.fileSize +=(long) this.files[i].size;
             }
         }
-        if ((((long)this.fileSize / 1024) / 1024) / 1024 > 1) {
+        Map<String,Object> sizeMap = prepareSize((long)this.fileSize);
+        this.fileSize =(float) sizeMap.get("size");
+        this.sizeType = sizeMap.get("type");
+        if(hit['files'] != null)
+        {
+            this.files.each {
+                sizeMap = prepareSize(it.size);
+                it.fileSize =(float) sizeMap.get("size");
+                it.sizeType = sizeMap.get("type");
+            }
+        }
+
+        if(hits)
+
+
+      /*  if ((((long)this.fileSize / 1024) / 1024) / 1024 > 1) {
             this.fileSize = ((this.fileSize / 1024) / 1024) / 1024;
             this.sizeType = "Gb";
         } else {
@@ -45,7 +64,7 @@ class HitViewModel {
                 this.fileSize = this.fileSize / 1024;
                 this.sizeType = "Kb";
             }
-        }
+        }*/
         if (hit['seeders'] != null) {
             this.seeders = (int) hit['seeders'];
         } else
@@ -57,4 +76,26 @@ class HitViewModel {
         this.magnet = hit['magnet'];
     }
 
+    public static Map<String,Object>prepareSize(long fileSize)
+    {
+        if (((fileSize / 1024) / 1024) / 1024 > 1) {
+            Map<String,Object> res =  new HashMap<String, Object>();
+            res.put("size",(((fileSize / 1024) / 1024) / 1024));
+            res.put("type","Gb");
+            return res;
+        } else {
+            if ((fileSize / 1024) / 1024 > 1) {
+                Map<String,Object> res =  new HashMap<String, Object>();
+                res.put("size",((fileSize / 1024) / 1024));
+                res.put("type","Mb");
+                return res;
+
+            } else {
+                Map<String,Object> res =  new HashMap<String, Object>();
+                res.put("size",fileSize / 1024);
+                res.put("type","Mb");
+                return res;
+            }
+        }
+    }
 }
