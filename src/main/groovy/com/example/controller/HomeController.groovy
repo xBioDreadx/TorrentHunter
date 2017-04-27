@@ -58,7 +58,7 @@ public class HomeController {
                     {
                         checkedTypes.put(it,false);
                     }
-                }
+                } 
                 println(checkedTypes);
                 model.addAttribute("types",checkedTypes);
 
