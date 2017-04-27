@@ -55,6 +55,9 @@
                    <#list  hit.getProperty('type') as type>
                     <label class="file_type">${type}</label>
                    </#list>
+                     <#list  hit.getProperty('categories') as cat>
+                         <label class="file_category">${cat}</label>
+                     </#list>
                </p>
                 <div class="file_list_wrapper">
                     <label class="file_list_label" for="file_box_${hit?index}">Список файлов</label>

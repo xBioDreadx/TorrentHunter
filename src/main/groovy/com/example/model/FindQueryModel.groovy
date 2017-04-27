@@ -23,7 +23,7 @@ class FindQueryModel {
 
     ArrayList<String> Types
 
-    String Categories
+    ArrayList<String> Categories
 
     String Tags
 

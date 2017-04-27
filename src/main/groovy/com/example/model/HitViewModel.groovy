@@ -8,6 +8,7 @@ class HitViewModel {
     public String search;
     public String originalName;
     public ArrayList<String> type = new ArrayList<String>();
+    public ArrayList<String> categories = new ArrayList<String>();
     public float fileSize;
 
     /**
@@ -65,7 +66,15 @@ class HitViewModel {
                 }
             }
         }
-
+        if(hit["categories"]!=null)
+        {
+            if(hit["categories"].size()>0)
+            {
+                hit["categories"].each {
+                    this.categories.push(it.toString());
+                }
+            }
+        }
 
 
         if (hit['seeders'] != null) {

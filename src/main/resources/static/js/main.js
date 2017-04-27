@@ -42,5 +42,13 @@ $(document).ready(function () {
         document.location = PrepareLink(field,value);
       return false;
     });
+    //highlight
+    $(".search-item").click(function(){
+        var th= $(this);
+        $(".search-item").each(function(){
+            $(this).removeClass("active");
+        });
+        th.addClass("active");
+    })
 
 });
