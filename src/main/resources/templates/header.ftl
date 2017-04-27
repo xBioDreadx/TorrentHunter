@@ -37,34 +37,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12 category-group">
+        <div class="col-md-12 types-group">
             <div>
                 <p>Для уточнения поиска можешь выбрать категорию</p>
             </div>
-            <div class="category-item-group">
-                <input type="checkbox" class="category-checkbox" name="Movie" id="movie">
-                <label class="label label-info category-label" for="movie">Movie</label>
-            </div>
-            <div class="category-item-group">
-                <input type="checkbox" class="category-checkbox" name="Book" id="book">
-                <label class="label label-info category-label" for="book">Book</label>
-            </div>
-            <div class="category-item-group">
-                <input type="checkbox" class="category-checkbox" name="Emulated" id="emulated">
-                <label class="label label-info category-label" for="emulated">Emulated Formats</label>
-            </div>
-            <div class="category-item-group">
-                <input type="checkbox" class="category-checkbox" name="Audio" id="audio">
-                <label class="label label-info category-label" for="audio">Audio</label>
-            </div>
-            <div class="category-item-group">
-                <input type="checkbox" class="category-checkbox" name="Shows" id="shows">
-                <label class="label label-info category-label" for="shows">Shows</label>
-            </div>
-            <div class="category-item-group">
-                <input type="checkbox" class="category-checkbox" name="ххх" id="ххх">
-                <label class="label label-info category-label" for="ххх">XXX</label>
-            </div>
+           <#list types?keys as type>
+               <div class="category-item-group">
+                   <input type="checkbox" class="category-checkbox" <#if types[type]==true>checked="checked" </#if> name="${type}" id="${type}">
+                   <label class="label label-info category-label"  for="${type}">${type}</label>
+               </div>
+           </#list>
         </div>
     </div>
 </div>

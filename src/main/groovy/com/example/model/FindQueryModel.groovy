@@ -21,6 +21,8 @@ class FindQueryModel {
     @Max(4L)
     Integer Sort
 
+    ArrayList<String> Types
+
     String Categories
 
     String Tags
@@ -43,6 +45,10 @@ class FindQueryModel {
 
     public Integer getSort() {
         return this.Sort;
+    }
+    public ArrayList<String> getTypes()
+    {
+        return this.Types;
     }
 
     public void formatInputs() {

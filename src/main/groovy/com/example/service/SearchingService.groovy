@@ -9,7 +9,7 @@ import org.elasticsearch.index.query.Operator
 import org.elasticsearch.search.sort.SortBuilders
 import org.elasticsearch.search.sort.SortOrder
 import org.elasticsearch.transport.client.PreBuiltTransportClient
-
+import org.elasticsearch.index.query.*
 import org.springframework.stereotype.Service
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.QueryBuilders

@@ -36,11 +36,38 @@ public class HomeController {
             try {
                 model.addAttribute("language", findQueryModel.getLanguage());
                 model.addAttribute("searchString", findQueryModel.getSearchString());
+                //add file types
+                ArrayList<String> types = new ArrayList<String>();
+                types.push("Video");
+                types.push("Audio");
+                types.push("Emulated Formats");
+                types.push("Archive");
+                types.push("Text Formats");
+                Map<String,Boolean> checkedTypes = new HashMap<String,Boolean>();
+                ArrayList<String> selectedTypes = findQueryModel.getTypes();
+                println(selectedTypes);
+                types.each {
+                    for(int i=0;i<selectedTypes.size();i++)
+                    {
+                        if(it==selectedTypes[i])
+                        {
+                            checkedTypes.put(it,true);
+                        }
+                    }
+                    if(checkedTypes.get(it)==null)
+                    {
+                        checkedTypes.put(it,false);
+                    }
+                }
+                println(checkedTypes);
+                model.addAttribute("types",checkedTypes);
 
                 if (findQueryModel.getSearchString() != '') {
                     searchingService.Search();
                     model.addAttribute("page", findQueryModel.getPage());
                     model.addAttribute("sort", findQueryModel.getSort());
+
+
                     //TODO add  categories and tags
                     /*
                     String Categories

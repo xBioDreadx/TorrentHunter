@@ -7,8 +7,9 @@ import java.lang.reflect.Array
 class HitViewModel {
     public String search;
     public String originalName;
-    public String type;
+    public ArrayList<String> type = new ArrayList<String>();
     public float fileSize;
+
     /**
      * @Variable sizeType необходимо для указания КБ,МБ,ГБ
      */
@@ -16,6 +17,8 @@ class HitViewModel {
     public Integer seeders;
     public Date peers_updated;
     public String magnet;
+
+
     public  ArrayList<FileHit> files;
 
     HitViewModel(Map<String,Object> hit) {
@@ -30,7 +33,6 @@ class HitViewModel {
         }
         this.search = hit['search'];
         this.originalName =hit['name'];
-        this.type = hit['type'];
         if (hit['fileSize'] != null) {
             this.fileSize = (long)  hit['fileSize'];
         } else {
@@ -49,21 +51,23 @@ class HitViewModel {
                 it.sizeType = sizeMap.get("type");
             }
         }
-        
-
-
-      /*  if ((((long)this.fileSize / 1024) / 1024) / 1024 > 1) {
-            this.fileSize = ((this.fileSize / 1024) / 1024) / 1024;
-            this.sizeType = "Gb";
-        } else {
-            if (((long)this.fileSize / 1024) / 1024 > 1) {
-                this.fileSize = (this.fileSize / 1024) / 1024;
-                this.sizeType = "Mb";
-            } else {
-                this.fileSize = this.fileSize / 1024;
-                this.sizeType = "Kb";
+        if(hit["type"]!=null)
+        {
+            //compability for old types
+            if(hit["type"].getClass()==String)
+            {
+                this.type.push(hit['type'].toString());
             }
-        }*/
+            else
+            {
+                hit["type"].each {
+                    this.type.push(it.toString());
+                }
+            }
+        }
+
+
+
         if (hit['seeders'] != null) {
             this.seeders = (int) hit['seeders'];
         } else

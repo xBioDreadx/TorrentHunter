@@ -50,7 +50,12 @@
     <#list hits as hit>
         <div class="row search-item">
             <div class="col-md-7">
-               <p style="font-size: 12pt;">${hit.getProperty('search')}</p>
+               <p style="font-size: 12pt;">
+                 ${hit.getProperty('search')}
+                   <#list  hit.getProperty('type') as type>
+                    <label class="file_type">${type}</label>
+                   </#list>
+               </p>
                 <div class="file_list_wrapper">
                     <label class="file_list_label" for="file_box_${hit?index}">Список файлов</label>
                     <input type="checkbox" class="file_list_check" id="file_box_${hit?index}">

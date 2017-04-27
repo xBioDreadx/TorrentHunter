@@ -14,17 +14,17 @@ $(document).ready(function () {
             case "page":
                 link = "/?Language=" + language + "&searchString=" + searchString + "&page=" + value + "&Sort=" + sort;
                 break;
-            case "Sort":
+            case "sort":
                 link = "/?Language=" + language + "&searchString=" + searchString + "&page=" + page + "&Sort=" + value;
                 break;
         }
-        return prepareCategory(link);
+        return prepareTypes(link);
 
     }
 
-    function prepareCategory(link) {
-        $(".category-group").find("input[type='checkbox']:checked").each(function () {
-            link += "&" + $(this).attr("name") + "=on";
+    function prepareTypes(link) {
+        $(".types-group").find("input[type='checkbox']:checked").each(function (index) {
+            link += "&Types["+index+"]=" + $(this).attr("name");
         });
         return link;
     }
