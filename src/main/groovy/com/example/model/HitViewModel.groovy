@@ -49,8 +49,7 @@ class HitViewModel {
                 it.sizeType = sizeMap.get("type");
             }
         }
-
-        if(hits)
+        
 
 
       /*  if ((((long)this.fileSize / 1024) / 1024) / 1024 > 1) {
