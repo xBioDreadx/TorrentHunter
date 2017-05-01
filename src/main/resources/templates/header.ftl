@@ -41,12 +41,15 @@
             <div>
                 <p>Для уточнения поиска можешь выбрать категорию</p>
             </div>
-           <#list types?keys as type>
-               <div class="category-item-group">
-                   <input type="checkbox" class="category-checkbox" <#if types[type]==true>checked="checked" </#if> name="${type}" id="${type}">
-                   <label class="label label-info category-label"  for="${type}">${type}</label>
-               </div>
-           </#list>
+            <#if types??>
+                <#list types?keys as type>
+                    <div class="category-item-group">
+                        <input type="checkbox" class="category-checkbox" <#if types[type]==true>checked="checked" </#if> name="${type}" id="${type}">
+                        <label class="label label-info category-label"  for="${type}">${type}</label>
+                    </div>
+                </#list>
+            </#if>
+
         </div>
     </div>
 </div>

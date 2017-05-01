@@ -214,8 +214,11 @@ input:focus
     padding: 5px;
     border: 1px solid #c0c0c0;
     border-radius: 4px;
-    height: 34px;
     margin-bottom: 5px;
+}
+.file_list_list li p
+{
+    margin: 0;
 }
 .file_list_list
 {

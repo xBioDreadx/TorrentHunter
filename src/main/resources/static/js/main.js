@@ -9,7 +9,7 @@ $(document).ready(function () {
                 link = "/?Language=" + value + "&searchString=" + searchString + "&page=" + page + "&Sort=" + sort;
                 break;
             case "searchString":
-                link = "/?Language=" + language + "&searchString=" + value + "&page=" + page + "&Sort=" + sort;
+                link = "/?Language=" + language + "&searchString=" + value + "&page=" + 1 + "&Sort=" + 1;
                 break;
             case "page":
                 link = "/?Language=" + language + "&searchString=" + searchString + "&page=" + value + "&Sort=" + sort;
@@ -51,4 +51,7 @@ $(document).ready(function () {
         th.addClass("active");
     })
 
+    $("body").keydown(function(eventData){
+
+    })
 });
