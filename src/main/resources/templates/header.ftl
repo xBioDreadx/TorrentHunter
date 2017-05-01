@@ -3,6 +3,7 @@
 <head>
     <title>Torrent Hunter -Лучший поисковик торрентов! <#if  searchString!=''>Вы ищите: ${searchString} </#if></title>
     <meta name="Keywords" content="Поиск и загрузка торрентов, игр, фильмов, музыки, книг, софта, программ">
+    <!-- TODO  выдать 1 результат как в тепарсере в разделе дескрипшн-->
     <meta name="Description" content="   <#if  searchString!=''>Ваш запрос: ${searchString} имеет ${query_total} результатов. </#if> На сайте вы сможете найти любой интресующий вас контент: игры, фильмы, музыку, книги и многое другое. Без регистраций и назойливой рекламы - только поиск информации и торренты">
     <meta name="robots" content="all"/>
     <meta charset="utf-8">

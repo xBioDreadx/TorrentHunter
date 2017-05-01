@@ -37,7 +37,7 @@
             <div class="btn-group" role="group">
                     <label class="label goto-label"  for="goto">На страницу</label>
                     <input class="input-sm input-goto" id="goto" type="number" min="1" max="${pages_total}" name="page">
-                    <button class="btn btn-default goto-button action-button" data-input="goto" >Перейти</button>
+                    <button class="btn btn-default goto-button action-button" data-input="goto" id="button-goto" >Перейти</button>
             </div>
         </div>
     </div>
