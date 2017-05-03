@@ -34,37 +34,66 @@
     padding-top: 15px;
     min-height:55px;
 }
-.search-group .search-bar
+.search-group
 {
-    max-width: 600px;
-    display: inline-block;
-    outline: none;
-    border-width: 5px;
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
     height: 50px;
-    border-image: -webkit-linear-gradient(left, rgba(255,175,75,1) 0%,rgba(252,14,10,1) 72%);
-    border-color: transparent;
     background-color: transparent;
     border-image-slice: 1;
-    box-shadow: 0px 0px 25px 0px rgba(252,14,10,1);
+
+
+}
+.search-bar
+{
+
+    outline: none;
+    height:100%;
+    border: none;
+    background-color: white;
+    box-shadow: 0px 0px 5px 0px transparent;
+
+}
+.search_contain
+{
+    width: 600px;
+    display: inline-block;
+    height:100%;
+    background-color: white;
+    padding-left: 35px;
+}
+.search_contain:before
+{
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: url('/images/search.png');
+    background-size: contain;
+    display: block;
+    position: absolute;
+    margin-left: -25px;
+    margin-top: 14px;
+}
+.search-bar:focus,.search-bar:active
+{
+    box-shadow: 0px 0px 5px 0px transparent;
 }
 .submit-btn
 {
-    border-width:5px;
+    border:5px solid white;
+    vertical-align: top;
     height: 50px;
     margin-left: -5px;
     width: 100px;
+    background-color: #00ba00;
     color: white;
-    background: rgba(252,14,10,1);
-    border-color: rgba(252,14,10,1);
+  /*  background: rgba(252,14,10,1);
+    border-color: rgba(252,14,10,1);*/
     font-size: 14pt;
     font-weight: 600;
-    box-shadow: 0px 0px 25px 0px rgba(252,14,10,1);
-    border-right-width:35px;
-    border-top-right-radius:50px;
-    border-bottom-right-radius:50px;
+  /*  box-shadow: 0px 0px 25px 0px rgba(252,14,10,1);*/
     outline: none;
+  /*  box-shadow: 0px 0px 5px 0px rgb(50, 10, 10);*/
 }
 
 .btn-group > .btn
@@ -81,7 +110,9 @@
 }
 .submit-btn.btn:active, .submit-btn.btn.active
 {
-    box-shadow: 0px 0px 35px 0px rgba(252,14,10,1);
+    /*box-shadow: 0px 0px 35px 0px rgba(252,14,10,1);*/
+  /*  box-shadow: 0px 0px 8px 0px rgb(50, 10, 10);*/
+    box-shadow: 0px 0px 8px 0px transparent;
 }
 .submit-btn:hover,.submit-btn:active
 {

@@ -22,7 +22,6 @@
             </div>
             <div class="col-md-8">
                 <h1 class="header-h1">Torrent Hunter - Лучший поисковик торрентов!</h1>
-
             </div>
         </div>
     </div>
@@ -34,9 +33,11 @@
                 <h2 class="header-h2">Приходи, ищи, качай! Софт, игры, музыка, фильмы, книги - Torrent Hunter найдёт всё</h2>
                 <input type="hidden" name="Language" value="${language}">
                 <div class="input-group search-group">
-                    <input type="text" class="form-control search-bar" aria-describedby="search-btn" name="searchString" id="searchString"
-                           placeholder="Твой запрос" <#if searchString!=''>value="${searchString}"</#if>>
-                    <button class="btn submit-btn input-group-addon action-button" data-input="searchString" id="search-btn">Найти!</button>
+                  <div class="search_contain">
+                      <input type="text" class="form-control search-bar" aria-describedby="search-btn" name="searchString" id="searchString"
+                             placeholder="Твой запрос" <#if searchString!=''>value="${searchString}"</#if>>
+                  </div>
+                    <button class="btn submit-btn input-group-addon action-button" data-input="searchString" id="search-btn">Поиск</button>
                 </div>
             </div>
         </div>

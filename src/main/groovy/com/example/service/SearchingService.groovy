@@ -43,13 +43,13 @@ class SearchingService {
             def query = QueryBuilders.boolQuery();
             types.each {
                 switch (it) {
-                    case "Video": query = query.filter(QueryBuilders.termQuery("type_is_video", true)); break;
-                    case "Audio": query = query.filter(QueryBuilders.termQuery("type_is_audio", true)); break;
-                    case "Emulated Formats": query = query.filter(QueryBuilders.termQuery("type_is_emulated", true)); break;
-                    case "Archive": query = query.filter(QueryBuilders.termQuery("type_is_archive", true)); break;
-                    case "Text Formats": query = query.filter(QueryBuilders.termQuery("type_is_text", true)); break;
-                    case "Executable": query = query.filter(QueryBuilders.termQuery("type_is_exe", true)); break;
-                    case "APK": query = query.filter(QueryBuilders.termQuery("type_is_apk", true)); break;
+                    case "Video": query = query.should(QueryBuilders.termQuery("type_is_video", true)); break;
+                    case "Audio": query = query.should(QueryBuilders.termQuery("type_is_audio", true)); break;
+                    case "Emulated Formats": query = query.should(QueryBuilders.termQuery("type_is_emulated", true)); break;
+                    case "Archive": query = query.should(QueryBuilders.termQuery("type_is_archive", true)); break;
+                    case "Text Formats": query = query.should(QueryBuilders.termQuery("type_is_text", true)); break;
+                    case "Executable": query = query.should(QueryBuilders.termQuery("type_is_exe", true)); break;
+                    case "APK": query = query.should(QueryBuilders.termQuery("type_is_apk", true)); break;
                 }
 
             }
