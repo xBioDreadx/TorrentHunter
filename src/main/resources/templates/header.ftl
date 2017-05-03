@@ -30,7 +30,7 @@
     <div class="container">
         <div class="search-row row">
             <div class="col-md-8 col-md-offset-2">
-                <h2 class="header-h2">Приходи, ищи, качай! Софт, игры, музыка, фильмы, книги - Torrent Hunter найдёт всё</h2>
+                <h2 class="header-h2">Приходи, ищи, качай. Софт, игры, музыка, фильмы, книги</h2>
                 <input type="hidden" name="Language" value="${language}">
                 <div class="input-group search-group">
                   <div class="search_contain">
