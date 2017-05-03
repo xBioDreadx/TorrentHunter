@@ -38,6 +38,8 @@ class HomeController {
             types.push("Emulated Formats")
             types.push("Archive")
             types.push("Text Formats")
+            types.push("Executable")
+            types.push("APK")
             Map<String,Boolean> checkedTypes = new HashMap<String,Boolean>()
             ArrayList<String> selectedTypes = findQueryModel.getTypes()
             println(selectedTypes)
@@ -71,7 +73,9 @@ class HomeController {
                 model.addAttribute("searchString", findQueryModel.getSearchString())
                 //add file types
                 if (findQueryModel.getSearchString() != '') {
-                    SearchHits searchHit = searchingService.Search( findQueryModel.getSearchString(),findQueryModel.getCompletePage(),findQueryModel.Sort).getHits();
+
+                    SearchHits searchHit = searchingService.Search( findQueryModel.getSearchString(),findQueryModel.getCompletePage(),findQueryModel.Sort,findQueryModel.getTypes()).getHits();
+
                     model.addAttribute("page", findQueryModel.getPage())
                     model.addAttribute("sort", findQueryModel.getSort())
 

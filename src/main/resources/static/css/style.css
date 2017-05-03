@@ -2,17 +2,32 @@
 /**
 *header part
 */
-.site-header
+.header_wrapper
 {
-    margin-top:15px;
+    background-color:  #00ba00;
+}
+.under_header_wrapper
+{
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 .header-h1
 {
-    font-size: 24pt;
+    font-size: 14pt;
+    color: white;
+    margin-top: 15px;
 }
+.search_wrapper
+{
+    padding-top: 25px;
+    background-color: rgba(122,188,255,1);
+}
+
 .header-h2
 {
     font-size: 12pt;
+    padding-bottom:20px;
+    text-align: center;
 }
 .search-row
 {
