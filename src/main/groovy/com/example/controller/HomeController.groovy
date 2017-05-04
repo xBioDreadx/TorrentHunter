@@ -26,18 +26,15 @@ class HomeController {
     static ArrayList<String> types = ["Video", "Audio", "Emulated Formats", "Archive", "Text Formats", "Executable", "APK"]
 
     @RequestMapping(
-            value= "/{language:}/{searchString}/{page}/{sort}",method = RequestMethod.GET)
-    @ResponseBody
+            value= "/{language}/{searchString}/{page}/{sort}",method = RequestMethod.GET)
     String Search(@PathVariable("language") String language,
                   @PathVariable("searchString") String searchString,
                   @PathVariable("page") Integer page,
                   @PathVariable("sort") Integer sort,
-                  //@RequestParam("Types")  ArrayList<String> buySell,
+                  //@RequestParam("types")  ArrayList<String> buySell,
                   @Valid FindQueryModel findQueryModel,
                   BindingResult bindingResult,
                   Model model) {
-
-        println("as");
         if (!bindingResult.hasErrors()) {
             try {
                 findQueryModel.formatInputs()
@@ -80,8 +77,6 @@ class HomeController {
             println("ERROR")
             return "header"
         }
-
-        //model.addAttribute("Language", FindQueryModel.Language);
 
     }
 

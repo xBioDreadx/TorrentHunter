@@ -6,16 +6,16 @@ $(document).ready(function () {
         var link = "";
         switch (field) {
             case "language":
-                link = "/?Language=" + value + "&searchString=" + searchString + "&Page=" + page + "&Sort=" + sort;
+                link = "/"+ value +"/"+ searchString + "/" + page + "/" + sort;
                 break;
             case "searchString":
-                link = "/?Language=" + language + "&searchString=" + value + "&Page=" + 1 + "&Sort=" + 1;
+                link = "/" + language + "/" + value + "/" + 1 + "/" + 1;
                 break;
             case "page":
-                link = "/?Language=" + language + "&searchString=" + searchString + "&Page=" + value + "&Sort=" + sort;
+                link = "/" + language + "/" + searchString + "/" + value + "/" + sort;
                 break;
             case "sort":
-                link = "/?Language=" + language + "&searchString=" + searchString + "&Page=" + page + "&Sort=" + value;
+                link = "/" + language + "/" + searchString + "/" + page + "/" + value;
                 break;
         }
         return prepareTypes(link);
@@ -23,8 +23,9 @@ $(document).ready(function () {
     }
 
     function prepareTypes(link) {
+        link+="?";
         $(".types-group").find("input[type='checkbox']:checked").each(function (index) {
-            link += "&Types["+index+"]=" + $(this).attr("name");
+            link += "&types["+index+"]=" + $(this).attr("name");
         });
         return link;
     }

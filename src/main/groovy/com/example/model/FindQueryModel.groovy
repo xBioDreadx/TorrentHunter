@@ -16,7 +16,7 @@ class FindQueryModel {
     @Max(4L)
     Integer sort
 
-    ArrayList<String> Types
+    ArrayList<String> types
 
     ArrayList<String> categories
 
@@ -43,7 +43,7 @@ class FindQueryModel {
     }
     public ArrayList<String> getTypes()
     {
-        return this.Types;
+        return this.types;
     }
 
     public void formatInputs() {
