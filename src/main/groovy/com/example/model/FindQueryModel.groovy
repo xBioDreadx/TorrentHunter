@@ -1,34 +1,29 @@
 package com.example.model
 
-import org.hibernate.validator.constraints.Email
-import org.springframework.web.bind.annotation.RequestParam
-
-import javax.validation.constraints.AssertTrue
 import javax.validation.constraints.Max
 import javax.validation.constraints.Min
-import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 
 class FindQueryModel {
 //SpringBootValidation google
-    String Language
+    String language
     @Size(min = 3)
-    String SearchString
+    String searchString
     @Min(1L)
-    Integer Page
+    Integer page
     @Min(1L)
     @Max(4L)
-    Integer Sort
+    Integer sort
 
     ArrayList<String> Types
 
-    ArrayList<String> Categories
+    ArrayList<String> categories
 
     String Tags
 
     public String getSearchString() {
-        return this.SearchString;
+        return this.searchString;
     }
     /**
      *
@@ -36,15 +31,15 @@ class FindQueryModel {
      */
     public Integer getCompletePage() {
 
-        return (this.Page - 1) * 100;
+        return (this.page - 1) * 100;
     }
 
     public Integer getPage() {
-        return this.Page;
+        return this.page;
     }
 
     public Integer getSort() {
-        return this.Sort;
+        return this.sort;
     }
     public ArrayList<String> getTypes()
     {
@@ -53,17 +48,16 @@ class FindQueryModel {
 
     public void formatInputs() {
         if (language != 'ru' || language != 'en')
-            this.Language = 'ru';
+            this.language = 'ru';
+
+        if (!this.page)
+            this.page = 1;
+        if (this.searchString)
+            this.searchString = this.searchString.trim();
         else
-            this.Language = language;
-        if (!this.Page)
-            this.Page = 1;
-        if (this.SearchString)
-            this.SearchString = this.SearchString.trim();
-        else
-            this.SearchString = '';
-        if (this.Sort==null||this.Sort<1) {
-            this.Sort = 1;
+            this.searchString = '';
+        if (this.sort==null||this.sort<1) {
+            this.sort = 1;
         }
 
     }

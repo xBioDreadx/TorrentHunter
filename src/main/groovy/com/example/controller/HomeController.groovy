@@ -3,15 +3,16 @@ package com.example.controller
 import com.example.model.FindQueryModel
 import com.example.model.HitViewModel
 import com.example.service.SearchingService
-import org.elasticsearch.action.search.SearchResponse
 import org.elasticsearch.search.SearchHits
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseBody
 
 import javax.validation.Valid
 
@@ -22,70 +23,35 @@ class HomeController {
 
     @Autowired
     SearchingService searchingService
+    static ArrayList<String> types = ["Video", "Audio", "Emulated Formats", "Archive", "Text Formats", "Executable", "APK"]
 
+    @RequestMapping(
+            value= "/{language:}/{searchString}/{page}/{sort}",method = RequestMethod.GET)
+    @ResponseBody
+    String Search(@PathVariable("language") String language,
+                  @PathVariable("searchString") String searchString,
+                  @PathVariable("page") Integer page,
+                  @PathVariable("sort") Integer sort,
+                  //@RequestParam("Types")  ArrayList<String> buySell,
+                  @Valid FindQueryModel findQueryModel,
+                  BindingResult bindingResult,
+                  Model model) {
 
-    @RequestMapping("/")
-    String Home(
-            @Valid FindQueryModel findQueryModel,
-            BindingResult bindingResult,
-            Model model) {
-
-
+        println("as");
         if (!bindingResult.hasErrors()) {
-            ArrayList<String> types = new ArrayList<String>()
-            types.push("Video")
-            types.push("Audio")
-            types.push("Emulated Formats")
-            types.push("Archive")
-            types.push("Text Formats")
-            types.push("Executable")
-            types.push("APK")
-            Map<String,Boolean> checkedTypes = new HashMap<String,Boolean>()
-            ArrayList<String> selectedTypes = findQueryModel.getTypes()
-            println(selectedTypes)
-            if(selectedTypes!=null)
-            {
-                types.each {
-                    for(int i=0;i<selectedTypes.size();i++)
-                    {
-                        if(it==selectedTypes[i])
-                        {
-                            checkedTypes.put(it,true)
-                        }
-                    }
-                    if(checkedTypes.get(it)==null)
-                    {
-                        checkedTypes.put(it,false)
-                    }
-                }
-            }
-            else
-            {
-              types.each {
-                  checkedTypes.put(it,false)
-              }
-            }
-            println(checkedTypes)
-            model.addAttribute("types",checkedTypes)
             try {
                 findQueryModel.formatInputs()
+
+                model.addAttribute("types", prepareTypes(findQueryModel.getTypes()))
                 model.addAttribute("language", findQueryModel.getLanguage())
                 model.addAttribute("searchString", findQueryModel.getSearchString())
                 //add file types
                 if (findQueryModel.getSearchString() != '') {
 
-                    SearchHits searchHit = searchingService.Search( findQueryModel.getSearchString(),findQueryModel.getCompletePage(),findQueryModel.Sort,findQueryModel.getTypes()).getHits();
+                    SearchHits searchHit = searchingService.Search(findQueryModel.getSearchString(), findQueryModel.getCompletePage(), findQueryModel.sort, findQueryModel.getTypes()).getHits();
 
                     model.addAttribute("page", findQueryModel.getPage())
                     model.addAttribute("sort", findQueryModel.getSort())
-
-                    //TODO add  categories and tags
-                    /*
-                    String Categories
-
-                    String Tags
-                    */
-
                     model.addAttribute("query_total", searchHit.totalHits)
                     model.addAttribute("pages_total", Math.ceil(searchHit.totalHits / 100))
 
@@ -96,8 +62,7 @@ class HomeController {
                     model.addAttribute("hits", hitsModel)
 
                     return "search"
-                } else
-                {
+                } else {
                     model.addAttribute("page", findQueryModel.getPage())
                     model.addAttribute("sort", findQueryModel.getSort())
                     return "index"
@@ -105,18 +70,58 @@ class HomeController {
             }
             catch (Exception e) {
                 println(e)
-                //TODO 404 Page
+                //TODO 404 page
                 return "header"
             }
-
         } else {
-            //TODO 404 Page
+            bindingResult.allErrors.each {
+            println(it);}
+            //TODO 404 page
             println("ERROR")
             return "header"
         }
 
         //model.addAttribute("Language", FindQueryModel.Language);
 
+    }
+
+    @RequestMapping("/")
+    String Home(
+            Model model) {
+        model.addAttribute("types", prepareTypes(null))
+        model.addAttribute("language",'ru')
+        model.addAttribute("searchString",'')
+        return "index";
+    }
+
+    @RequestMapping("/{language}")
+    String HomeLang(@PathVariable String language,
+                    Model model) {
+        model.addAttribute("types", prepareTypes(null))
+        model.addAttribute("language",language)
+        model.addAttribute("searchString",'')
+        return "index";
+    }
+
+    public static Map<String, Boolean> prepareTypes(ArrayList<String> selectedTypes) {
+        Map<String, Boolean> checkedTypes = new HashMap<String, Boolean>()
+        if (selectedTypes != null) {
+            types.each {
+                for (int i = 0; i < selectedTypes.size(); i++) {
+                    if (it == selectedTypes[i]) {
+                        checkedTypes.put(it, true)
+                    }
+                }
+                if (checkedTypes.get(it) == null) {
+                    checkedTypes.put(it, false)
+                }
+            }
+        } else {
+            types.each {
+                checkedTypes.put(it, false)
+            }
+        }
+       return checkedTypes;
     }
 
 
