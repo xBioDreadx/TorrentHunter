@@ -31,7 +31,6 @@ class HomeController {
                   @PathVariable("searchString") String searchString,
                   @PathVariable("page") Integer page,
                   @PathVariable("sort") Integer sort,
-                  //@RequestParam("types")  ArrayList<String> buySell,
                   @Valid FindQueryModel findQueryModel,
                   BindingResult bindingResult,
                   Model model) {
@@ -42,15 +41,16 @@ class HomeController {
                 model.addAttribute("types", prepareTypes(findQueryModel.getTypes()))
                 model.addAttribute("language", findQueryModel.getLanguage())
                 model.addAttribute("searchString", findQueryModel.getSearchString())
+                model.addAttribute("pageLength",findQueryModel.getPageLength())
                 //add file types
                 if (findQueryModel.getSearchString() != '') {
 
-                    SearchHits searchHit = searchingService.Search(findQueryModel.getSearchString(), findQueryModel.getCompletePage(), findQueryModel.sort, findQueryModel.getTypes()).getHits();
+                    SearchHits searchHit = searchingService.Search(findQueryModel).getHits();
 
                     model.addAttribute("page", findQueryModel.getPage())
                     model.addAttribute("sort", findQueryModel.getSort())
                     model.addAttribute("query_total", searchHit.totalHits)
-                    model.addAttribute("pages_total", Math.ceil(searchHit.totalHits / 100))
+                    model.addAttribute("pages_total", Math.ceil(searchHit.totalHits /findQueryModel.getPageLength()))
 
                     ArrayList<HitViewModel> hitsModel = new ArrayList<HitViewModel>()
                     for (int i = 0; i < searchHit.hits.length; i++) {
@@ -86,6 +86,9 @@ class HomeController {
         model.addAttribute("types", prepareTypes(null))
         model.addAttribute("language",'ru')
         model.addAttribute("searchString",'')
+        model.addAttribute("pageLength",20)
+        model.addAttribute("sort", 1)
+        model.addAttribute("page", 1)
         return "index";
     }
 
@@ -95,8 +98,14 @@ class HomeController {
         model.addAttribute("types", prepareTypes(null))
         model.addAttribute("language",language)
         model.addAttribute("searchString",'')
+        model.addAttribute("pageLength",20)
+        model.addAttribute("sort", 1)
+        model.addAttribute("page", 1)
         return "index";
     }
+
+
+
 
     public static Map<String, Boolean> prepareTypes(ArrayList<String> selectedTypes) {
         Map<String, Boolean> checkedTypes = new HashMap<String, Boolean>()

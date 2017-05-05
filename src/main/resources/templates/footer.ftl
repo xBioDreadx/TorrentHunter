@@ -10,6 +10,7 @@
         var language = "${language}";
         var sort="${sort}";
         var page ="${page}";
+        var pageLength = "${pageLength}"
 
 </script>
 </body>

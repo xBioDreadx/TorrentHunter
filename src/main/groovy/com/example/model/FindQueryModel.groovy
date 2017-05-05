@@ -15,6 +15,8 @@ class FindQueryModel {
     @Min(1L)
     @Max(4L)
     Integer sort
+    @Min(1L)
+    Integer pageLength
 
     ArrayList<String> types
 
@@ -31,15 +33,21 @@ class FindQueryModel {
      */
     public Integer getCompletePage() {
 
-        return (this.page - 1) * 100;
+        return (this.page - 1) * this.getPageLength();
     }
 
     public Integer getPage() {
         return this.page;
     }
+    public Integer getPageLength()
+    {
+
+            return (pageLength==null||pageLength<1)? 20: pageLength;
+    }
 
     public Integer getSort() {
-        return this.sort;
+
+        return (sort==null||sort<1)? 1: sort;
     }
     public ArrayList<String> getTypes()
     {
@@ -58,6 +66,10 @@ class FindQueryModel {
             this.searchString = '';
         if (this.sort==null||this.sort<1) {
             this.sort = 1;
+        }
+        if(pageLength==null||pageLength<1)
+        {
+            pageLength=20;
         }
 
     }

@@ -24,12 +24,11 @@ import java.sql.Timestamp
 class SearchingService {
 
     private TransportClient client;
-    private SearchRequestBuilder request;
+//    private SearchRequestBuilder request;
 
 
     SearchingService() {
         this.OpenConnect();
-        this.request = this.client.prepareSearch("torrents").setSearchType(SearchType.DFS_QUERY_THEN_FETCH).setIndices();
     }
 
     @PreDestroy
@@ -37,8 +36,14 @@ class SearchingService {
         this.client.close();
     }
 
-    public SearchResponse Search(String searchString, Integer page, Integer sort, ArrayList<String> types) {
-        SearchRequestBuilder request;
+    public SearchResponse Search(FindQueryModel findQueryModel) {
+        ArrayList<String> types =  findQueryModel.getTypes();
+        String searchString = findQueryModel.getSearchString();
+        Integer page =  findQueryModel.getCompletePage()
+        Integer sort = findQueryModel.getSort()
+        Integer pageLength = findQueryModel.getPageLength();
+
+        SearchRequestBuilder request =  this.client.prepareSearch("torrents").setSearchType(SearchType.DFS_QUERY_THEN_FETCH).setIndices();
         if (types != null) {
             def query = QueryBuilders.boolQuery();
             types.each {
@@ -53,16 +58,20 @@ class SearchingService {
                 }
 
             }
-            request = this.request.setQuery(query.must(QueryBuilders.matchQuery('search', searchString).operator(Operator.AND))).setFrom(page).setSize(100);
+            request.setQuery(query.must(QueryBuilders.matchQuery('search', searchString).operator(Operator.AND))).setFrom(page).setSize(pageLength);
         } else {
-            request = this.request.setQuery(QueryBuilders.matchQuery('search', searchString).operator(Operator.AND)).setFrom(page).setSize(100);
+            request.setQuery(QueryBuilders.matchQuery('search', searchString).operator(Operator.AND)).setFrom(page).setSize(pageLength);
         }
-        if (sort != null)
+        if (sort != null&&sort>1)
+        {
+            SortBuilders sortBuilder = new SortBuilders();
             switch (sort) {
-                case 2: request.addSort(SortBuilders.fieldSort("fileSize").order(SortOrder.DESC)); break;
-                case 3: request.addSort(SortBuilders.fieldSort("seeders").order(SortOrder.DESC)); break;
-                case 4: request.addSort(SortBuilders.fieldSort("peers_updated").order(SortOrder.DESC)); break;
+                case 2: request.addSort(sortBuilder.fieldSort("fileSize").order(SortOrder.DESC)); break;
+                case 3: request.addSort(sortBuilder.fieldSort("seeders").order(SortOrder.DESC)); break;
+                case 4: request.addSort(sortBuilder.fieldSort("peers_updated").order(SortOrder.DESC)); break;
             }
+        }
+
         println("REQUEST IS ");
         println(request);
         return request.get();

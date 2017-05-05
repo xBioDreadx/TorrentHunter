@@ -14,8 +14,11 @@ $(document).ready(function () {
             case "page":
                 link = "/" + language + "/" + searchString + "/" + value + "/" + sort;
                 break;
+            case "pageLength":
+                link = "/" + language + "/" + searchString + "/" + 1 + "/" + sort;
+                break;
             case "sort":
-                link = "/" + language + "/" + searchString + "/" + page + "/" + value;
+                link = "/" + language + "/" + searchString + "/" + 1 + "/" + value;
                 break;
         }
         return prepareTypes(link);
@@ -27,6 +30,7 @@ $(document).ready(function () {
         $(".types-group").find("input[type='checkbox']:checked").each(function (index) {
             link += "&types["+index+"]=" + $(this).attr("name");
         });
+        link+="&pageLength="+pageLength;
         return link;
     }
 
@@ -46,11 +50,16 @@ $(document).ready(function () {
     //highlight
     $(".search-item").click(function(){
         var th= $(this);
-        $(".search-item").each(function(){
-            $(this).removeClass("active");
-        });
-        th.addClass("active");
-    })
+        if(!th.hasClass("active"))
+        {
+            $(".search-item").each(function(){
+                $(this).removeClass("active");
+            });
+            th.addClass("active");
+        }
+        else
+            th.removeClass("active");
+    });
 
     $("body").keyup(function(event){
         if(event.keyCode == 13){
@@ -65,5 +74,8 @@ $(document).ready(function () {
                   $("#button-goto").click();
           }
         }
+    });
+    $("#pageLength").change(function(){
+        pageLength = (Number.isInteger(Number($(this).val()))) ? $(this).val(): 20;
     });
 });
