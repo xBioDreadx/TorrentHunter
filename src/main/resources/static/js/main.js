@@ -9,7 +9,7 @@ $(document).ready(function () {
                 link = "/"+ value +"/"+ searchString + "/" + page + "/" + sort;
                 break;
             case "searchString":
-                link = "/" + language + "/" + value + "/" + 1 + "/" + 1;
+                link = "/" + language + "/" + value + "/" + 1 + "/" +sort;
                 break;
             case "page":
                 link = "/" + language + "/" + searchString + "/" + value + "/" + sort;

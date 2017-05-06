@@ -40,7 +40,7 @@ class HomeController {
 
                 model.addAttribute("types", prepareTypes(findQueryModel.getTypes()))
                 model.addAttribute("language", findQueryModel.getLanguage())
-                model.addAttribute("searchString", findQueryModel.getSearchString())
+                model.addAttribute("searchString", findQueryModel.getSearchString().replace(" ","_"));
                 model.addAttribute("pageLength",findQueryModel.getPageLength())
                 //add file types
                 if (findQueryModel.getSearchString() != '') {
