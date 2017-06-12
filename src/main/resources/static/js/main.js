@@ -1,46 +1,34 @@
 /**
- * Created by sealtech on 05.04.2017.
+ * Created by Администратор on 12.06.2017.
  */
-$(document).ready(function () {
-    function PrepareLink(field, value) {
-        var link = "";
-        switch (field) {
-            case "language":
-                link = "/?Language=" + value + "&searchString=" + searchString + "&page=" + page + "&Sort=" + sort;
-                break;
-            case "searchString":
-                link = "/?Language=" + language + "&searchString=" + value + "&page=" + page + "&Sort=" + sort;
-                break;
-            case "page":
-                link = "/?Language=" + language + "&searchString=" + searchString + "&page=" + value + "&Sort=" + sort;
-                break;
-            case "Sort":
-                link = "/?Language=" + language + "&searchString=" + searchString + "&page=" + page + "&Sort=" + value;
-                break;
-        }
-        return prepareCategory(link);
-
-    }
-
-    function prepareCategory(link) {
-        $(".category-group").find("input[type='checkbox']:checked").each(function () {
-            link += "&" + $(this).attr("name") + "=on";
-        });
-        return link;
-    }
-
-    $(".action-link").click(function () {
-        var field = $(this).attr("data-field");
-        var value = $(this).attr("data-value");
-        document.location = PrepareLink(field, value);
+$(document).ready(function ()
+{
+    $('.add_post').click(function ()
+    {
+        $('#body_posts').append('<tr><td><input type="text" value="" name="punkts[]" style="width: 100%;"></td><td><label class="btn btn-danger delete_js">X</label></td>'+
+        '<td> <input type="file"  style="display: inline" name="files[]" id="files_1"></td></tr>');
         return false;
     });
-    $(".action-button").click(function () {
-        var item = $("#" + $(this).attr("data-input"));
-        var field = item.attr("name");
-        var value = item.val();
-        document.location = PrepareLink(field,value);
-      return false;
+
+    $("#body_posts").on("click",".delete_js",function () {
+        $(this).parent().parent().remove();
+        return false;
+    });
+    var if_count =1;
+
+
+    $(".add_if").click(function () {
+        if_count++;
+        var  s = '<tr><td><select name="g'+if_count+'_parametr">';
+        for(var i=0;i<array_of_params.length;i++)
+            s+='<option>'+array_of_params[i]+'</option>';
+        s+='</select></td><td><select name="g'+if_count+'_term"><option>term1</option><option>term2</option><option>term3</option><option>term4</option></select></td><td><label class="btn btn-danger delete_js">X</label></td></tr>';
+        $("#add_s").append(s)
+    })
+    $("#add_s").on("click",".delete_js",function () {
+        if_count--;
+        $(this).parent().parent().remove();
+        return false;
     });
 
-});
+ });
