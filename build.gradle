@@ -23,13 +23,15 @@ repositories {
 
 
 dependencies {
+	compile group: 'com.xlson.groovycsv', name: 'groovycsv', version: '1.2'
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-actuator-docs')
-	compile('org.springframework.boot:spring-boot-starter-cache')
-	compile('org.springframework.boot:spring-boot-starter-data-redis')
+//	compile('org.springframework.boot:spring-boot-starter-cache')
+//	compile('org.springframework.boot:spring-boot-starter-data-redis')
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
 	compile('org.springframework.boot:spring-boot-starter-integration')
-	compile('org.springframework.boot:spring-boot-starter-mail')
+//	compile('org.springframework.boot:spring-boot-starter-mail')
 	compile('org.springframework.boot:spring-boot-starter-mobile')
 	compile('org.springframework.session:spring-session')
 	compile('org.springframework.boot:spring-boot-starter-validation')
@@ -40,13 +42,13 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
 
-	compile group: 'com.vividsolutions', name: 'jts', version: '1.13'
-	compile("org.elasticsearch.client:transport:5.3.0")
-	compile("org.elasticsearch:elasticsearch:5.3.0")
+//	compile group: 'com.vividsolutions', name: 'jts', version: '1.13'
+//	compile("org.elasticsearch.client:transport:5.3.0")
+//	compile("org.elasticsearch:elasticsearch:5.3.0")
 
-	compile("org.locationtech.spatial4j:spatial4j:0.6")
+//	compile("org.locationtech.spatial4j:spatial4j:0.6")
 
-	compile('org.elasticsearch:elasticsearch-lang-groovy:2.2.0')
+//	compile('org.elasticsearch:elasticsearch-lang-groovy:2.2.0')
 
 	compile("org.apache.logging.log4j:log4j-api:2.7")
 	compile("org.apache.logging.log4j:log4j-core:2.7")

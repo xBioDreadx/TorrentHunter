@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service
  */
 @Service
 class LoginService {
-    boolean specialist=false
+    boolean user=true
 }

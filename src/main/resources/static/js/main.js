@@ -3,12 +3,12 @@
  */
 $(document).ready(function ()
 {
-    $('.add_post').click(function ()
-    {
-        $('#body_posts').append('<tr><td><input type="text" value="" name="punkts[]" style="width: 100%;"></td><td><label class="btn btn-danger delete_js">X</label></td>'+
-        '<td> <input type="file"  style="display: inline" name="files[]" id="files_1"></td></tr>');
-        return false;
-    });
+    // $('.add_post').click(function ()
+    // {
+    //     $('#body_posts').append('<tr><td><input type="text" value="" name="punkts[]" style="width: 100%;"></td><td><label class="btn btn-danger delete_js">X</label></td>'+
+    //     '<td> <input type="file"  style="display: inline" name="files[]" id="files_1"></td></tr>');
+    //     return false;
+    // });
 
     $("#body_posts").on("click",".delete_js",function () {
         $(this).parent().parent().remove();
